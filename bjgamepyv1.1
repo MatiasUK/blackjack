@@ -30,19 +30,20 @@ def deal_and_display():
         2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11,
     ]
 
-    c1 = std_deck.pop(random.randrange(len(std_deck)))
-    c2 = std_deck.pop(random.randrange(len(std_deck)))
+    random.shuffle(std_deck)
+
+    c1 = std_deck.pop()
+    c2 = std_deck.pop()
     print("Player has: " + str(c1) + " and " + str(c2) + "\nTotal = " + str(c1 + c2))
 
-    d1 = std_deck.pop(random.randrange(len(std_deck)))
-    d2 = std_deck.pop(random.randrange(len(std_deck)))
+    d1 = std_deck.pop()
+    d2 = std_deck.pop()
     print("Dealer has: " + str(d1) + " and " + str(d2) + "\nTotal = " + str(d1 + d2))
 
     player_total = c1 + c2
     dealer_total = d1 + d2
 
     while player_total <= 21:
-        c3 = std_deck.pop(random.randrange(len(std_deck)))
         choice = input("Player total is: " + (str(player_total) + " - Would you like to [S]tick or [T]wist?: "))
         if choice == "S":
             print("Player has: " + (str(player_total)))
@@ -50,6 +51,7 @@ def deal_and_display():
             # Move onto Dealers Turn
         elif choice == "T":
             time.sleep(0.5)
+            c3 = std_deck.pop()
             print("New card is a " + str(c3))
             player_total += c3
 
@@ -59,20 +61,18 @@ def deal_and_display():
         deal_and_display()
 
     while dealer_total <= 21:
-        d3 = std_deck.pop(random.randrange(len(std_deck)))
         print("Dealer has: " + str(dealer_total))
         time.sleep(2)
-        try:
-            if (dealer_total < player_total) or (dealer_total == 16):
-                print("Dealer draws")
-                time.sleep(1)
-                dealer_total += int(d3)
-                time.sleep(1)
-                print("New card is a " + str(d3))
-        except:
-            if dealer_total == 17:
-                print("Dealer sticks with 17")
-                break
+        if (dealer_total < player_total) or (dealer_total == 16):
+            print("Dealer draws")
+            d3 = std_deck.pop()
+            time.sleep(1)
+            dealer_total += int(d3)
+            time.sleep(1)
+            print("New card is a " + str(d3))
+        elif dealer_total == 17:
+            print("Dealer sticks with 17")
+            break
         if dealer_total > 21:
             time.sleep(1)
             print("Dealer busts with " + str(dealer_total))
