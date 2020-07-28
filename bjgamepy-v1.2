@@ -63,16 +63,11 @@ def deal_and_display():
         print("Dealer has: " + str(dealer_total))
         time.sleep(2)
         if (dealer_total < player_total) or (dealer_total == 16):
-            try: 
-                print("Dealer draws")
-                time.sleep(1)
-                dealer_total += int(d3)
-                time.sleep(1)
-                print("New card is a " + str(d3))
-            except Exception:
-            if dealer_total == 17:
-                print("Dealer sticks with 17")
-                break
+            print("Dealer draws")
+            time.sleep(1)
+            dealer_total += int(d3)
+            time.sleep(1)
+            print("New card is a " + str(d3))
         if dealer_total > 21:
             time.sleep(1)
             print("Dealer busts with " + str(dealer_total))
